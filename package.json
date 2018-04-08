@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "gulp browserSync"
+  },
   "devDependencies": {
     "browser-sync": "^2.18.7",
     "gulp": "^3.9.1"

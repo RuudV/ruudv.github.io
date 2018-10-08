@@ -8,23 +8,51 @@
 
     <meta property="og:title" content="Ruud Voost ~ User Experience Designer &amp; Front-end Developer">
     <meta property="og:description"
-          content="User Experience designer and Front-end developer who enjoys (creating) digital experiences.">
+          content="User Experience Designer and Front-end Developer who enjoys (creating) Digital Experiences.">
     <meta property="og:image" content="http://ruudvoost.com/social_image.jpg">
     <meta property="og:url" content="http://ruudvoost.com/">
     <meta property="og:site_name" content="Ruud Voost ~ User Experience Designer &amp; Front-end Developer">
 
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#262626">
-    <meta name="msapplication-TileColor" content="#262626">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=gHsy">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=gHsy">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=gHsy">
+    <link rel="manifest" href="/site.webmanifest?v=gHsy">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=gHsy" color="#262626">
+    <link rel="shortcut icon" href="/favicon.ico?v=gHsy">
+    <meta name="msapplication-TileColor" content="#fafafa">
     <meta name="theme-color" content="#efefef">
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400|IBM+Plex+Mono:300" rel="stylesheet">
 
     <style>
+        :root {
+            --color--background--default: #efefef;
+            --color--text--default: #262626;
+
+            --color--text--links: #262626;
+            --color--text--links--visited: #666;
+
+            --letter-spacing--default: -.2px;
+            --letter-spacing--title: normal;
+
+            --padding--body: 9vw;
+
+            --switch-theme--border-right--width: 8px;
+        }
+
+        .dark {
+            --color--background--default: #1a1a1a;
+            --color--text--default: #999;
+
+            --color--text--links: #d9d9d9;
+            --color--text--links--visited: #999;
+
+            --letter-spacing--default: -.1px;
+            --letter-spacing--title: .8px;
+
+            --switch-theme--border-right--width: 7px;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -35,26 +63,33 @@
         }
 
         body {
-            margin: 0;
-            padding: 9vw;
-            font: 300 1rem/1.5 'IBM Plex Mono', monospace;
-            background: #efefef;
-            color: #262626;
-            letter-spacing: -.2px;
-
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
+
+            margin: 0;
+            padding: var(--padding--body);
+
+            background-color: var(--color--background--default);
+
+            font: 300 1rem/1.5 'IBM Plex Mono', monospace;
+            color: var(--color--text--default);
+            letter-spacing: var(--letter-spacing--default);
+
+            transition: color .3s ease-in-out, background-color .3s ease-in-out, letter-spacing .3s ease-in-out;
         }
 
         h1 {
+            margin: 0 0 .75rem -.1875rem;
+
             font-family: 'Playfair Display', serif;
             font-weight: 400;
             line-height: 1;
             font-size: 3.5rem;
-            margin: 0 0 .75rem -.1875rem;
-            letter-spacing: normal;
+            letter-spacing: var(--letter-spacing--title);
+
+            transition: letter-spacing .3s ease-in-out;
         }
 
         p {
@@ -62,23 +97,54 @@
         }
 
         a {
-            color: #666;
+            color: var(--color--text--links);
             text-decoration: underline;
+
+            transition: color .3s ease-in-out, background-color .3s ease-in-out;
         }
 
         a:visited {
-            color: #999;
+            color: var(--color--text--links--visited);
+        }
+
+        a:focus {
+            outline: none;
         }
 
         a:hover,
         a:focus {
-            color: #efefef;
-            background-color: #262626;
+            background-color: var(--color--text--default);
+            color: var(--color--background--default);
         }
 
         footer {
-            color: #ababab;
-            margin-top: 4rem;
+            margin-top: 2rem;
+        }
+
+        .switch-theme {
+            display: block;
+            height: 20px;
+            width: 20px;
+
+            padding: 0;
+
+            position: absolute;
+            left: var(--padding--body);
+            bottom: var(--padding--body);
+
+            border: 3px solid var(--color--text--default);
+            border-right-width: var(--switch-theme--border-right--width);
+            border-radius: 50%;
+
+            background: transparent;
+
+            will-change: border, box-shadow;
+            transition: border .3s ease-in-out, box-shadow .3s ease-in-out;
+        }
+
+        .switch-theme:focus {
+            outline: none;
+            box-shadow: 0 0 6px 1px var(--color--text--default);
         }
     </style>
 
@@ -100,6 +166,8 @@
     </script>
 </head>
 <body>
+<button class="switch-theme js-switch-theme"></button>
+
 <main>
     <h1>Hi and welcome,</h1>
 
@@ -109,5 +177,18 @@
 </main>
 
 <footer>ps. if you ended up here by accident: My name is Ruud and I create digital experiences.</footer>
+
+<script>
+    (function (document) {
+        var switchButton = document.getElementsByClassName('js-switch-theme')[0],
+            body = document.body;
+
+        switchButton.addEventListener('click', switchTheme);
+
+        function switchTheme() {
+            body.classList.toggle('dark');
+        }
+    })(document);
+</script>
 </body>
 </html>
